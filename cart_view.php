@@ -90,7 +90,7 @@
                             <th>Product </th>
                             <th>User name</th>
                             <th>Quantity</th>
-                            <th>Datetime</th>
+                            <th>Date & time</th>
                            
                           </tr>
                         </thead>
@@ -129,7 +129,7 @@
                             <th>Product </th>
                             <th>User name</th>
                             <th>Quantity</th>
-                            <th>Datetime</th>
+                            <th>Date & time</th>
     
                           </tr>
                         </tfoot>
