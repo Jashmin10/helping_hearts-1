@@ -86,6 +86,7 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
+                      <form  method="post" >
                       <table class="display" id="advance-1">
                         <thead>
                           <tr>
@@ -134,11 +135,8 @@
                                       <td><?php echo $row["price"]?></td>
                                       <td><?php echo $row["description"]?></td>
                                       <td><?php echo $row["video_url"]?></td>
-                                      <td><?php echo $row["is_active"]?></td>
-
-                                       <td>
-
-                                       </td>
+                                      <td><a class="btn btn-pill btn-primary" type="button"><?php echo $row["is_active"];?></a></td>
+                                      
                                        </tr>
                           <?php 
                                 }
@@ -172,6 +170,7 @@
                       }
                       ?>
                       </table>
+                      </form>
                     </div>
                   </div>
                 </div>

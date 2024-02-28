@@ -90,6 +90,7 @@ include "commanpages/connection.php";
                       <div class="mb-3">
                       <label class="col-form-label pt-0" for="exampleInputState">State</label>
                       <select class="form-control" name="state_id">
+                        <option value="0" disabled selected>Please select state</option>
                         <?php 
                          $sql = "select * from tbl_state;";
                          $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
@@ -172,37 +173,44 @@ include "commanpages/connection.php";
   <!-- Plugin used-->
 </body>
 <script>
-    $(document).ready(function(){
+   $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
-}, "Letters only please");
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
 
-jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
-      $("#_frm").validate({
+
+
+    $("#_frm").validate({
         rules: {
-          city_name:{
-            required:true,
-            minlength:3,
-            lettersonly:true,
-            noSpace :true,
-
-          }
+          state_id:{
+            required:true
+          },
+            city_name:{
+                required: true,
+                minlength: 3,
+                lettersonly: true,
+                noSpace: true
+            }
         },
         messages: {
-          city_name:{
-            required:"Blank is not allowed.",
-            minlength:"atleast 3 letter is required.",
-            lettersonly:"Numbers and spacialcharecter are not allow.",
-            noSpace : "Space is not alloewd"
-          }
+          state_id:{
+            required:"Please select state"
+          },
+            city_name:{
+                required: "Please enter city.",
+                minlength: "At least 3 letters are required.",
+                lettersonly: "Numbers and special characters are not allowed.",
+                noSpace: "Leading or trailing spaces are not allowed."
+            }
         }
-
-      });
-
     });
+});
     </script>
 
 </html>

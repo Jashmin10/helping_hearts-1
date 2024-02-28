@@ -107,6 +107,7 @@ include "commanpages/connection.php";
                         <div class="mb-3">
                           <label class="col-form-label pt-0" for="exampleInputState">Tittle</label>
                           <input class="form-control" name="tittle" type="text" placeholder="Enter Tittle" value="<?php echo $tit; ?>">
+                          <input class="form-control" name="tittle_old" type="hidden"value="<?php echo $tit; ?>">
                         </div>
                         <div class="mb-3">
                           <label class="col-form-label pt-0" for="exampleInputState">Description</label>
@@ -179,12 +180,15 @@ include "commanpages/connection.php";
 
                           if (isset($_POST["btn_update"]))
                            {
+                            
                             $tit = $_POST["tittle"];
+                            $tit_old = $_POST["tittle_old"];
                             $desc=$_POST["description"];
                             $oldimg1= $_POST["oldimg1"];
                             $oldimg2=$_POST["oldimg2"];
                             $vu=$_POST["video_url"];
                             $rl =$_POST["ref_link"];
+                            $_radioSelect = $_POST["is_active"];
                             $newimg="";
                             $newimg2="";
 
@@ -217,10 +221,23 @@ include "commanpages/connection.php";
                                 move_uploaded_file($_FILES["img2"]["tmp_name"], $uploadDirectory.$imgname2);
                                 $newimg2 = $imgname2;
                               }
-                              $sql = "update tbl_article set tittle='$tit', description='$desc', img1='$newimg', img2='$newimg2', video_url='$vu', ref_link='$rl' where article_id='$id'  ;";
+                              $sqlsel = "select * from tbl_article where tittle='$tit' and tittle!='$tit_old';";
+                              $res = mysqli_query($conn, $sqlsel) or die(mysqli_error($conn));
+                               $row = mysqli_num_rows($res) ;
+                               if($row <= 0)
+                               {
+                              $sql = "update tbl_article set tittle='$tit', description='$desc', img1='$newimg', img2='$newimg2', video_url='$vu', ref_link='$rl', is_active='$_radioSelect' where article_id='$id'  ;";
                               $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                              echo "<script> window.location='artical_view.php'; </script>";
-                           
+                              echo "<script> window.location='artical_view.php'; </script>";                           
+                          }
+                          else{
+                            ?>
+                            <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                      <p>already exist</p>
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                           <?php
+                          }
                           }
                             ?>
                     </div>
@@ -261,16 +278,23 @@ include "commanpages/connection.php";
   <!-- login js-->
   <!-- Plugin used-->
   <script>
-    $(document).ready(function() {
-      jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");      
+    $(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");    
 
       $("#_frm").validate({
         rules: {
           tittle: {
             required: true,
             minlength: 3,
+            lettersonly:true,
             noSpace :true,
 
           },
@@ -279,14 +303,6 @@ include "commanpages/connection.php";
             minlength: 3,
            
 
-          },
-          img1:{
-            required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
-          },
-          img2:{
-            required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
           },
           video_url:{
             required: true,
@@ -301,6 +317,7 @@ include "commanpages/connection.php";
           tittle: {
             required: "Blank is not allowed.",
             minlength: "atleast 3 letter is required.",
+            lettersonly:"Numbers and spacialcharecter are not allow.",
             noSpace : "Space is not alloewd"
 
           },
@@ -309,14 +326,6 @@ include "commanpages/connection.php";
             minlength: "atleast 3 letter is required.", 
             
 
-          },
-          img1:{
-            required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
-          },
-          img2:{
-            required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
           },
           video_url: {
             required: "Blank is not allowed.",

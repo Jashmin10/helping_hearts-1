@@ -87,8 +87,11 @@ include "commanpages/connection.php";
                    
                     <div class="card-body">
                       <form class="theme-form" method="post" id="_frm">
+                        <div class="mb-3">
                       <label class="col-form-label pt-0" for="exampleInputState">FAQ Category</label>
                         <select class="form-control" name="faqcat_id">
+                      <option value="0" disabled selected>Please select FAQ category</option>
+
                         <?php 
                          $sql = "select * from tbl_faqcat;";
                          $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
@@ -100,6 +103,8 @@ include "commanpages/connection.php";
                          }
                         ?>
                       </select>
+                        </div>
+                      
                 
                      
                         <div class="mb-3">
@@ -117,7 +122,7 @@ include "commanpages/connection.php";
                         $id = $_POST["faqcat_id"];
                         $que=$_POST["question"];
                         $ans=$_POST["answer"];
-                        $sql= "select * from tbl_faq where faqcat_id='$id';";
+                        $sql= "select * from tbl_faq where question='$que';";
                         $r = mysqli_query($conn, $sql);
                         if(!empty($nm) && !empty($id) && mysqli_num_rows($r)==0){
                           $sql = "insert into tbl_faq(faqcat_id,question,answer) values('$id','$que','$ans');";
@@ -133,14 +138,11 @@ include "commanpages/connection.php";
                         {
                           ?>
                           <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
-                      <p> already Exist</p>
+                      <p> Already Exist</p>
                       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
                         }
-
-                        
-                  
                       }
                       ?> 
                     </div>
@@ -181,17 +183,22 @@ include "commanpages/connection.php";
   <!-- Plugin used-->
 </body>
 <script>
-    $(document).ready(function(){
+$(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
 
-jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
       $("#_frm").validate({
         rules: {
+          faqcat_id:{
+            required:true
+          },
           question:{
             required:true,
             minlength:3, 
@@ -204,6 +211,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           }
         },
         messages: {
+          faqcat_id:{
+            required:"Please select FAQ category"
+          },
             question:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",  

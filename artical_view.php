@@ -87,6 +87,7 @@ include "commanpages/connection.php";
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                    <form  method="post" action="#">
                     <table class="display" id="advance-1">
                       <thead>
                         <tr>
@@ -126,56 +127,22 @@ include "commanpages/connection.php";
                              
 
                               if(isset($_POST["btn_no"])) {
-                                // Confirm form submission
-                                echo "Form submitted";
-                            
-                                // Check value passed
-                                $t = $_POST["btn_no"];
-                                echo "Value of btn_no: " . $t;
-                            
-                                // Construct SQL query
-                                $sql = "UPDATE tbl_article SET is_active='yes' WHERE article_id='$t'";
-                                echo "SQL Query: " . $sql;
-                            
-                                // Execute SQL query
+                                 $t = $_POST["btn_no"];
+                                $sql = "UPDATE tbl_article SET is_active='no' WHERE article_id='$t'";
                                 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                            
-                                // Check for errors
-                                if($result) {
-                                    echo "Update successful";
-                                } else {
-                                    echo "Update failed: " . mysqli_error($conn);
-                                }
-                            
+                                              
                                 // Redirect
                                 echo "<script>window.location='artical_view.php';</script>";
                             }
                             
                             if(isset($_POST["btn_yes"])) {
-                                // Confirm form submission
-                                echo "Form submitted";
-                            
-                                // Check value passed
-                                $t = $_POST["btn_yes"];
-                                echo "Value of btn_yes: " . $t;
-                            
-                                // Construct SQL query
-                                $sql = "UPDATE tbl_article SET is_active='no' WHERE article_id='$t'";
-                                echo "SQL Query: " . $sql;
-                            
-                                // Execute SQL query
-                                $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                            
-                                // Check for errors
-                                if($result) {
-                                    echo "Update successful";
-                                } else {
-                                    echo "Update failed: " . mysqli_error($conn);
-                                }
-                            
-                                // Redirect
-                                echo "<script>window.location='artical_view.php';</script>";
-                            }
+                              $t = $_POST["btn_yes"];
+                             $sql = "UPDATE tbl_article SET is_active='yes' WHERE article_id='$t'";
+                             $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                           
+                             // Redirect
+                             echo "<script>window.location='artical_view.php';</script>";
+                         }
                             
                               ?>
                               
@@ -248,6 +215,7 @@ include "commanpages/connection.php";
                       }
                       ?>
                     </table>
+                    </form>
                   </div>
                 </div>
               </div>

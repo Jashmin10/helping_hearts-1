@@ -161,10 +161,16 @@ include "commanpages/connection.php";
   <!-- login js-->
   <!-- Plugin used-->
   <script>
-    $(document).ready(function(){
+        $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
       $("#_frm").validate({
         rules: {
@@ -172,6 +178,7 @@ include "commanpages/connection.php";
             required:true,
             minlength:3,
             lettersonly:true,
+            noSpace :true
             
           }
         },
@@ -179,7 +186,9 @@ include "commanpages/connection.php";
           state_name:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
-            lettersonly:"Numbers and spacialcharecter are not allow."
+            lettersonly:"Numbers and spacialcharecter are not allow.",
+            noSpace : "Space is not alloewd"
+
           }
         }
 

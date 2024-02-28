@@ -114,22 +114,16 @@ include "commanpages/connection.php";
                         <div class="mb-3 row">
                   <label class="col-sm-3 col-form-label" for="inputName3">Is_Active</label>
                  
-                  <div class="form-group m-t-15">
+                  <div class="form-group m-t-15" name="st">
                           <div class="radio-primary">
                             <input type="radio" name="is_active" value="yes">
-                            <label>Yes</label>
-                          </div>
-                          <div class="radio-primary">
+                            <label>Yes</label>  
+                            </br>
                             <input type="radio" name="is_active" value="no">
                             <label>No</label>
-                          </div>
-                    </div>
-                    <div>
-                      
-
-                    </div>
-             
-                </div>
+                         </div>
+                  </div>
+                        </div>
                         <?php
 
 if (isset($_POST["btn_sub"])) {
@@ -248,7 +242,10 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           ref_link:{
             required: true,
             minlength: 3,
-          }
+          },
+          is_active:{
+            required:true,
+          },
         },
         messages: {
           tittle: {
@@ -278,6 +275,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           ref_link: {
             required: "Blank is not allowed.",
             minlength: "atleast 3 letter is required.", 
+          },
+          is_active:{
+            required:"Please select one option",
           },
         }
 

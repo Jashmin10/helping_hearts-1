@@ -97,6 +97,7 @@ include "commanpages/connection.php";
                   <label class="col-sm-3 col-form-label" for="inputSubcat">Sub Category</label>
                   <div class="col-sm-9">
                     <select class="form-control" name="subcat_id">
+                      <option value="0" disabled selected>Select Sub Category</option>
                       <?php
                       $sql = "select * from tbl_subcategory;";
                       $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -117,15 +118,15 @@ include "commanpages/connection.php";
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label class="col-sm-3 col-form-label" for="inputAddress3">Description</label>
+                  <label class="col-sm-3 col-form-label">Description</label>
                   <div class="col-sm-9">
-                    <input class="form-control" id="inputAddress3" name="description" type="text" placeholder="Enter Description">
+                    <input class="form-control"  name="description" type="text" placeholder="Enter Description">
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label class="col-sm-3 col-form-label" for="inputAddress3">Video Url</label>
+                  <label class="col-sm-3 col-form-label">Video Url</label>
                   <div class="col-sm-9">
-                    <input class="form-control" id="inputAddress3" name="video_url" type="text" placeholder="Enter Video Url">
+                    <input class="form-control"  name="video_url" type="text" placeholder="Enter Video Url">
                   </div>
                 </div>
                 <div class="mb-3 row">
@@ -147,17 +148,17 @@ include "commanpages/connection.php";
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label class="col-sm-3 col-form-label" for="inputName3">Is_Active</label>
+                  <label class="col-sm-3 col-form-label">Is_Active</label>
                  
                   <div class="form-group m-t-15">
-                          <div class="radio-primary">
+                          <div class="radio-primary" name="st">
                             <input type="radio" name="is_active" value="yes">
                             <label>Yes</label>
-                          </div>
-                          <div class="radio-primary">
+                            <br/>
                             <input type="radio" name="is_active" value="no">
                             <label>No</label>
                           </div>
+                        
                     </div>
                     <div>
                       
@@ -253,22 +254,24 @@ if (isset($_POST["btn_sub"])) {
   <!-- Plugin used-->
 </body>
 <script>
-  $(document).ready(function() {
-    jQuery.validator.addMethod("lettersonly", function(value, element) {
-      return this.optional(element) || /^[a-z]+$/i.test(value);
-    }, "Letters only please");
+  $(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
 
-    jQuery.validator.addMethod("noSpace", function(value, element) {
-  // Regular expression to check if the value has leading or trailing spaces
-  var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
-  return !leadingTrailingSpaceRegex.test(value);
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
     $("#_frm").validate({
+     
+
       rules: {
         tittle: {
           required: true,
           minlength:3,
+          lettersonly:false,
           noSpace :true,
 
         },
@@ -279,7 +282,6 @@ if (isset($_POST["btn_sub"])) {
           required: true,
           minlength: 1,
           maxlength:5,
-          noSpace :true,
 
         },
         description: {
@@ -298,6 +300,9 @@ if (isset($_POST["btn_sub"])) {
         },
         img3: {
           required: true,
+        },
+        is_active:{
+          required:true
         }
 
       },
@@ -305,17 +310,17 @@ if (isset($_POST["btn_sub"])) {
         tittle: {
           required: "Blank is not allowed.",
           minlength: "atleast 3 letter is required.",
-          noSpace : "Space is not alloewd"
+          lettersonly:"Numbers and spacialcharecter are not allow.",
+          noSpace : "Space is not allowed"
 
         },
         subcat_id: {
-          required: "Blank is not allowed.",
+          required: "Please select sub category.",
         },
         price: {
           required: "Blank is not allowed.",
-          minlength: "atleast 3 letter is required.",
+          minlength: "atleast one digit is required.",
           maxlength:"Only enter 5 digits",
-          noSpace : "Space is not alloewd"
 
         },
         description: {
@@ -324,7 +329,7 @@ if (isset($_POST["btn_sub"])) {
 
         },
         video_url: {
-          required: "Blank is not allowed",
+          required: "Blank url is not allowed",
           noSpace : "Space is not alloewd"
 
         },
@@ -336,6 +341,9 @@ if (isset($_POST["btn_sub"])) {
         },
         img3: {
           required: "Please select Image",
+        },
+        is_active: {
+          required: "Please select one option."
         }
       }
 

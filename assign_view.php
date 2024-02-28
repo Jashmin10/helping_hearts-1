@@ -92,9 +92,9 @@ include "commanpages/connection.php";
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Volunteers</th>
-                          <th>User</th>
                           <th>Donation</th>
+                          <th>User</th>
+                          <th>Status</th>
                           <th>Assign Volunteer</th>
                           
                           
@@ -105,55 +105,53 @@ include "commanpages/connection.php";
                         <?php
                         $count = 0;
                         
-                        $sql = "select * from tbl_assign 
-                        inner join tbl_donation on tbl_assign.donation_id=tbl_donation.donation_id 
-                        inner join tbl_volunteers on tbl_assign.vol_id=tbl_volunteers.vol_id
+                        $sql = "select * from tbl_donation
                         inner join tbl_user on tbl_donation.user_id=tbl_user.user_id;";
                         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                         while ($row = mysqli_fetch_assoc($result)) {
                           $count++;
-                          $id = $row["assign_id"];
-                          $nm = $row["vol_name"];
+                          
                           $nm = $row["name"];
-                          $donation = $row["donation_id"];
+                          $id = $row["donation_id"];
                           $status = $row["status"];
                          
 
                         ?>
                           <tr>
-                            <td><?php echo $count ?> </td>
-                            <td><?php echo $row["vol_name"] ?> </td>
-                            <td><?php echo $row["name"] ?> </td>
+                            <td><?php echo $count ?> </td> 
                             <td><?php echo $row["items"] ?> </td>
+                            <td><?php echo $row["name"] ?> </td>
+                            <td><?php echo $row["status"] ?> </td>
                             <td>
-                              <!-- <button class="btn btn-pill btn-danger" type="submit" name="btn_no" value="">Not Assign</button> -->
-                              <a class="btn btn-pill btn-danger" href="assign_form.php" name="btn_no" value="">Not Assign</a>
-                              <button class="btn btn-pill btn-primary" type="submit" name="btn_yes" value="">Assign</button>
-                              
-                
-                            </td>
+                              <?php 
+                              $sql1 = "select * from tbl_assign where  donation_id='$id'; ";
+                              $result1 = mysqli_query($conn,$sql1);
+                              $row1=mysqli_num_rows($result1);
+                               if ($row1<=0)
+                               {
+                                                   
+                                echo '<a href="assign_form.php?donationid='.$id .'" class="btn btn-pill btn-danger" name="btn_no" value="'.$id.'">Not Assign</a>';
+                              }
+                              else{
+                                echo '<a class="btn btn-pill btn-primary disabled" name="btn_yes" value="'.$id.'">Assigned</a>';
+                              }
                             
-
-
-                           
+                              ?>
+                              
+                          </td>          
                           </tr>
                         <?php
                         }
                         ?>
 
-
-
                       </tbody>
                       <tfoot>
                         <tr>
                         <th>#</th>
-                          <th>Volunteers</th>
-                          <th>User</th>
                           <th>Donation</th>
+                          <th>User</th>
+                          <th>Status</th>
                           <th>Assign Volunteer</th>
-                          
-                         
-
                         </tr>
                       </tfoot>
                       <?php
