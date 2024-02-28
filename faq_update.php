@@ -84,18 +84,20 @@ include "commanpages/connection.php";
               <div class="row">
                 <div class="col-sm-12">
                   <div class="card">
+                    
                     <div class="card-body">
                       <form class="theme-form" method="post" id="_frm">
                       <?php 
-                        if(isset($_GET["selectid"]))
+                        if(isset($_GET["selectedid"]))
                         {
-                          $id = $_GET["selectid"];
-                         $sql="select * from tbl_faq where faq_id = $id ;";
+                          $id = $_GET["selectedid"];
+                         $sql="select * from tbl_faq where faq_id = '$id' ;";
                          $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
                          while($row = mysqli_fetch_assoc($result))
                          {
                           $que = $row["question"];
                           $ans = $row["answer"];
+                          
                           ?>
                           <div class="mb-3">
                           <label class="col-form-label pt-0" for="exampleInputState">Question</label>
@@ -111,8 +113,8 @@ include "commanpages/connection.php";
 
                         if(isset($_POST["btn_update"]))
                         {
-                            $que = $row["question"];
-                            $ans = $row["answer"];
+                            $que = $_POST["question"];
+                            $ans = $_POST["answer"];
                            $sql= "select * from tbl_faq where question = '$que' and answer='$ans';";
                            $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                            $row = mysqli_num_rows($result);
@@ -127,7 +129,7 @@ include "commanpages/connection.php";
                           {
                            ?>
                             <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
-                      <p>already exist</p>
+                      <p>Already exist</p>
                       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                            <?php

@@ -106,13 +106,12 @@ include "commanpages/connection.php";
                         </div>
                         
                   <div class="mb-3 row">
-                  <label class="col-sm-3 col-form-label" for="inputName3">Is_Active</label>
+                  <label class="col-sm-3 col-form-label" for="inputName3">Is_Display</label>
                   <div class="form-group m-t-15">
-                          <div class="radio-primary">
+                          <div class="radio-primary" name="st">
                             <input type="radio" name="is_display" value="yes">
                             <label>Yes</label>
-                          </div>
-                          <div class="radio-primary">
+                            </br>
                             <input type="radio" name="is_display" value="no">
                             <label>No</label>
                           </div>
@@ -135,11 +134,11 @@ include "commanpages/connection.php";
                           $sql = "insert into tbl_offers(tittle, min, max, discount,is_display) values('$tt', '$min', '$max', '$dis', '$_radioSelect');";
                           $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                       
-                      ?>
+                      
                           echo "<script>
                             window.location = 'offer_view.php';
                           </script>";
-                        <?php
+                        
                         } else {
                         ?>
                           <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
@@ -190,10 +189,16 @@ include "commanpages/connection.php";
   <!-- Plugin used-->
 </body>
 <script>
-    $(document).ready(function(){
+$(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
 
       $("#_frm").validate({
@@ -201,8 +206,8 @@ include "commanpages/connection.php";
           tittle:{
             required:true,
             minlength:3,
-            
-            
+            noSpace:true
+
           },
           min:{
             required:true,
@@ -218,13 +223,17 @@ include "commanpages/connection.php";
             required:true,
             minlength:1,
             maxlength:2,
-          }
+          },
+          is_display:{
+            required:true
+          },
         },
         messages: {
           tittle:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
-            
+            noSpace:"Space is not allowed"
+
           },
           min:{
             required:"Blank is not allowed.",
@@ -237,7 +246,10 @@ include "commanpages/connection.php";
           discount:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
-          }
+          },
+          is_display:{
+            required:"Please select one option"
+          },
         }
 
       });

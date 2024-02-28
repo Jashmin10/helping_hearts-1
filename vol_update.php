@@ -109,6 +109,7 @@ include "commanpages/connection.php";
                                   <label class="col-sm-3 col-form-label" for="inputName3">Volunteers Name</label>
                                   <div class="col-sm-9">
                                     <input class="form-control" name = "vol_name" type="text" placeholder="Volunteers Name" value="<?php echo $name; ?>">
+                                    <input class="form-control" name = "vol_name_old" type="hidden" value="<?php echo $name; ?>">
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -140,6 +141,8 @@ include "commanpages/connection.php";
                                   <label class="col-sm-3 col-form-label" for="inputEmail3">Select Area</label>
                                   <div class="col-sm-9">
                                     <select class="form-control" name="area_id">
+                    <option value="0" disabled selected>Please select area</option>
+
                                       <?php
                                       $sql = "select * from tbl_area;";
                                       $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -169,6 +172,7 @@ include "commanpages/connection.php";
                           if (isset($_POST["btn_update"]))
                            {
                             $name = $_POST["vol_name"];
+                            $name_old = $_POST["vol_name_old"];
                             $con = $_POST["contact"];
                             $mail = $_POST["email"];
                             $add = $_POST["address"];
@@ -192,13 +196,28 @@ include "commanpages/connection.php";
                                 move_uploaded_file($_FILES["myfile"]["tmp_name"], $uploadDirectory.$imgname);
                                 $newimg = $imgname;
                               }
+                              $sqlsel = "select * from tbl_volunteers where  vol_name='$name' and vol_name!='$name_old';";
+                               $res = mysqli_query($conn, $sqlsel) or die(mysqli_error($conn));
+                               $row = mysqli_num_rows($res) ;
+                               if($row <= 0)
+                               {
+
                               $sql = "update tbl_volunteers set vol_name='$name', email='$mail', contact='$con', address='$add', area_id='$aid', vol_img='$newimg', vol_pass='$pass' where vol_id='$id'  ;";
                               $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                               echo "<script> window.location='vol_view.php'; </script>";
                            
                           }
+                             else                                                          
+                            {
+                           ?>
+                            <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                      <p>Already exist</p>
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                           <?php
+                          }
+                          }
                             ?>
-
 
                               </div>
                               <div class="card-footer">
@@ -238,16 +257,24 @@ include "commanpages/connection.php";
     <!-- Plugin used-->
 </body>
 <script>
-  $(document).ready(function() {
-    jQuery.validator.addMethod("lettersonly", function(value, element) {
-      return this.optional(element) || /^[a-z]+$/i.test(value);
-    }, "Letters only please");
+       $(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
     $("#_frm").validate({
       rules: {
         vol_name: {
           required: true,
           lettersonly: true,
+          noSpace :true
+
         },
         email: {
           required: true,
@@ -265,21 +292,23 @@ include "commanpages/connection.php";
         },
         address: {
           required: true,
+          noSpace :true
+
         },
         area_id: {
           required: true,
-        },
-        myfile: {
-            required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
         }
+       
+        
 
       },
       messages: {
         vol_name: {
           required: "Blank is not allowed.",
           minlength: "atleast 3 letter is required.",
-          lettersonly: "Numbers and spacialcharecter are not allow."
+          lettersonly: "Numbers and spacialcharecter are not allow.",
+          noSpace : "Space is not alloewd"
+
         },
         mail: {
           required: "Please enter proper E-mail.",
@@ -298,14 +327,13 @@ include "commanpages/connection.php";
         },
         address: {
           required: "Blank is not allowed",
+          noSpace : "Space is not alloewd"
+
         },
         area_id: {
           required: "Please select area",
         },
-        myfile: {
-            required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
-        }
+       
       }
 
     });

@@ -120,7 +120,7 @@ include "commanpages/connection.php";
                         </div>
                         <div class="form-group m-t-15">
                         <div class="mb-3 row">
-                  <label class="col-sm-3 col-form-label" for="inputName3">Is_Active</label>
+                  <label class="col-sm-3 col-form-label" for="inputName3">Is_Display</label>
                           <?php
                         if($_radioSelect=="yes")
                         {
@@ -160,26 +160,29 @@ include "commanpages/connection.php";
                             $min = $_POST["min"];
                             $max = $_POST["max"];
                             $dis = $_POST["disc"];
+                            $_radioSelect = $_POST["is_display"];
+
                            $sql= "select * from tbl_offers where tittle = '$tt';";
                            $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                            $row = mysqli_num_rows($result);
                            if($row==0)
                            {
                          
-                          $sql="update tbl_offers set tittle='$tt', min='$min', max='$max', discount='$dis' where offer_id='$id' ;";
+                          $sql="update tbl_offers set tittle='$tt', min='$min', max='$max', discount='$dis', is_display='$_radioSelect' where offer_id='$id' ;";
                           $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
                           echo "<script> window.location='offer_view.php'; </script>";
                            }
-                          else
-                          {
-                           ?>
-                            <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
-                      <p>already exist</p>
-                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                           <?php
+                           else {
+                            ?>
+                              <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                                <p>Already Exist</p>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                          
+                          <?php
+                            }
                         }
-                      }
+                        
                         ?>
                         
 
@@ -224,10 +227,16 @@ include "commanpages/connection.php";
 </body>
 
 <script>
-    $(document).ready(function(){
+   $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty"); 
 
 
       $("#_frm").validate({
@@ -235,6 +244,8 @@ include "commanpages/connection.php";
           tittle:{
             required:true,
             minlength:3,
+            noSpace:true
+
           },
           min:{
             required:true,
@@ -256,6 +267,8 @@ include "commanpages/connection.php";
           tittle:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
+            noSpace:"Space is not allowed"
+
           },
           min:{
             required:"Blank is not allowed.",

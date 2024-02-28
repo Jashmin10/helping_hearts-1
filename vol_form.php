@@ -122,6 +122,8 @@ include "commanpages/connection.php";
                   <label class="col-sm-3 col-form-label" for="inputEmail3">Select Area</label>
                   <div class="col-sm-9">
                     <select class="form-control" name="area_id">
+                    <option value="0" disabled selected>Please select area</option>
+
                       <?php
                       $sql = "select * from tbl_area;";
                       $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -223,16 +225,25 @@ if (isset($_POST["btn_sub"])) {
   <!-- Plugin used-->
 </body>
 <script>
-  $(document).ready(function() {
-    jQuery.validator.addMethod("lettersonly", function(value, element) {
-      return this.optional(element) || /^[a-z]+$/i.test(value);
-    }, "Letters only please");
+        $(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
+
 
     $("#_frm").validate({
       rules: {
         vol_name: {
           required: true,
           lettersonly: true,
+          noSpace :true
+
         },
         email: {
           required: true,
@@ -250,6 +261,7 @@ if (isset($_POST["btn_sub"])) {
         },
         address: {
           required: true,
+          noSpace :true
         },
         area_id: {
           required: true,
@@ -264,7 +276,9 @@ if (isset($_POST["btn_sub"])) {
         vol_name: {
           required: "Blank is not allowed.",
           minlength: "atleast 3 letter is required.",
-          lettersonly: "Numbers and spacialcharecter are not allow."
+          lettersonly: "Numbers and spacialcharecter are not allow.",
+          noSpace : "Space is not alloewd"
+
         },
         mail: {
           required: "Please enter proper E-mail.",
@@ -283,6 +297,7 @@ if (isset($_POST["btn_sub"])) {
         },
         address: {
           required: "Blank is not allowed",
+          noSpace : "Space is not alloewd"
         },
         area_id: {
           required: "Please select area",

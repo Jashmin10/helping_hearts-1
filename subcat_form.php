@@ -91,6 +91,8 @@ include "commanpages/connection.php";
                       <label class="col-form-label pt-0" for="exampleInputState">Category</label>
                      
                       <select class="form-control" name="cat_id">
+                    <option value="0" disabled selected>Please select category</option>
+                        
                         <?php 
                          $sql = "select * from tbl_category;";
                          $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
@@ -102,10 +104,10 @@ include "commanpages/connection.php";
                          }
                         ?>
                       </select>
-                     
+                      </div>
                         <div class="mb-3">
                           <label class="col-form-label pt-0" for="exampleInputState">Sub Category</label>
-                          <input class="form-control" name="name" type="text" placeholder="Enter Subcategory name">
+                          <input class="form-control" name="name" type="text" placeholder="Enter sub category">
                         </div>
                         <?php 
                       If(isset($_POST["btn_add"]))
@@ -175,15 +177,20 @@ include "commanpages/connection.php";
 <script>
     $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
 
-jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
       $("#_frm").validate({
         rules: {
+          cat_id:{
+            required:true
+          },
           name:{
             required:true,
             minlength:3,
@@ -192,8 +199,11 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           }
         },
         messages: {
+          cat_id:{
+            required:"Please select category"
+          },
           name:{
-            required:"Blank is not allowed.",
+            required:"Please enter sub-category",
             minlength:"atleast 3 letter is required.",
             lettersonly:"Numbers and spacialcharecter are not allow.",
             noSpace:"Space is not allowed"

@@ -162,14 +162,16 @@ include "commanpages/connection.php";
   <!-- login js-->
   <!-- Plugin used-->
   <script>
-    $(document).ready(function(){
+$(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
 
-jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
       $("#_frm").validate({
         rules: {

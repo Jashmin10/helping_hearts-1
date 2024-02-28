@@ -98,11 +98,10 @@
                             <th>Total Payment</th>
                             <th>Donation Amount</th>
                             <th>Type</th>
-                            
                             <th>Payment Id</th>
                             <th>Status</th>
                             <th>Offer</th>
-                            <th>Date time</th>
+                            <th>Date & time</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -130,12 +129,11 @@
                                       <td><?php echo $row["city_name"]?></td>
                                       <td><?php echo $row["total_payment"]?></td>
                                       <td><?php echo $row["donation_amount"]?></td>
-                                      <td><?php echo $row["type"]?></td>
-                                     
+                                      <td><?php echo $row["type"]?></td>                               
                                       <td><?php echo $row["payment_id"]?></td>
                                       <td><?php echo $row["status"]?></td>
                                       <td><?php echo $row["tittle"]?></td>
-                                       <td><?php echo $row["order_datetime"]?></td>
+                                      <td><?php echo $row["order_datetime"]?></td>
                                        </tr>
                           <?php 
                                 }
@@ -155,11 +153,10 @@
                             <th>Total Payment</th>
                             <th>Donation Amount</th>
                             <th>Type</th>
-                            
                             <th>Payment Id</th>
                             <th>Status</th>
                             <th>Offer</th>
-                            <th>Date time</th>
+                            <th>Date & time</th>
                           </tr>
                         </tfoot>
                         <?php 

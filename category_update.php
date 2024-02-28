@@ -103,7 +103,9 @@ include "commanpages/connection.php";
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="inputName3">Category Name</label>
                                   <div class="col-sm-9">
-                                    <input class="form-control" name = "cat_name" type="text" placeholder="Category Name" value="<?php echo $name; ?>">
+                                  <input class="form-control" name = "cat_name" type="text" placeholder="Category Name" value="<?php echo $name; ?>">
+                                    <input class="form-control" name = "old_cat_name" type="hidden"  value="<?php echo $name; ?>">
+                                 
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -122,9 +124,10 @@ include "commanpages/connection.php";
                           if (isset($_POST["btn_update"]))
                            {
                             $cname = $_POST["cat_name"];
+                            $cnameold= $_POST["old_cat_name"];
                             $oldimg = $_POST["oldimg"];
                             $newimg="";
-
+                              //echo "myy idddd : " .$_GET["selectid"];
                             if(empty($_FILES["myfile"]["name"]))
                             {
                              
@@ -132,18 +135,35 @@ include "commanpages/connection.php";
                               } 
                               else
                                {
+                                unlink($uploadDirectory . $oldimg); //delete old images
                                 $ext = pathinfo($_FILES["myfile"]["name"], PATHINFO_EXTENSION);
                                 $imgname = time() . '.' . $ext;
                                 $uploadDirectory = "uploads/category_img/";
-                                unlink($uploadDirectory . $oldimg); //delete old images
                                 move_uploaded_file($_FILES["myfile"]["tmp_name"], $uploadDirectory.$imgname);
                                 $newimg = $imgname;
                               }
+
+                              $sqlsel = "select * from tbl_category where  cat_name='$cname' and cat_name!='$cnameold';";
+                               $res = mysqli_query($conn, $sqlsel) or die(mysqli_error($conn));
+                               $row = mysqli_num_rows($res) ;
+                               if($row <= 0)
+                               {
                               $sql = "update tbl_category set cat_name='$cname', cat_img='$newimg' where cat_id='$id'  ;";
                               $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                             
                               echo "<script> window.location='category_view.php'; </script>";
-                           
+                             }
+                             else
+                              
+                             
+                          {
+                           ?>
+                            <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                      <p>Already exist</p>
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                           <?php
+                          }
                           }
                             ?>
 
@@ -189,8 +209,14 @@ include "commanpages/connection.php";
   <script>
     $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty"); 
 
       $("#_frm").validate({
         rules: {
@@ -198,22 +224,20 @@ include "commanpages/connection.php";
             required:true,
             minlength:3,
             lettersonly:true,
-          },
-          myfile: {
-            required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
-        }
+            noSpace:true
+
+          }
+          
         },
         messages: {
           cat_name:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
-            lettersonly:"Numbers and spacialcharecter are not allow."
-          },
-          myfile: {
-            required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
-        }
+            lettersonly:"Numbers and spacialcharecter are not allow.",
+            noSpace:"Space is not allowed"
+
+          }
+         
         }
 
       });

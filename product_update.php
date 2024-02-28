@@ -112,11 +112,14 @@ include "commanpages/connection.php";
                         <div class="mb-3">
                           <label class="col-form-label pt-0" for="exampleInputState">Tittle</label>
                           <input class="form-control" name="tittle" type="text" placeholder="Enter Tittle" value="<?php echo $tit; ?>">
+                          <input class="form-control" name = "old_tittle" type="hidden"  value="<?php echo $tit; ?>">
                         </div>
                         <div class="mb-3 row">
                                   <label class="col-sm-6 col-form-label" for="inputEmail3">Select Sub Category</label>
                                   <div class="col-sm-12">
                                     <select class="form-control" name="subcat_id">
+                                    <option value="0" disabled selected>Please select sub category</option>
+
                                       <?php
                                       $sql = "select * from tbl_subcategory;";
                                       $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -211,6 +214,7 @@ include "commanpages/connection.php";
                           if (isset($_POST["btn_update"]))
                            {
                             $tit = $_POST["tittle"];
+                            $titold = $_POST["old_tittle"];
                             $subcat = $_POST["subcat_id"];
                             $desc=$_POST["description"];
                             $old1= $_POST["oldimg1"];
@@ -218,6 +222,7 @@ include "commanpages/connection.php";
                             $old3=$_POST["oldimg3"];
                             $vu=$_POST["video_url"];
                             $price =$_POST["price"];
+                            $_radioSelect = $_POST["is_active"];
                             $newimg="";
                             $newimg2="";
                             $newimg3="";
@@ -269,12 +274,28 @@ include "commanpages/connection.php";
 
                                 $newimg3 = $imgname3;
                               }
-                              $sql = "update tbl_products set tittle='$tit',subcat_id='$subcat', description='$desc', price='$price',video_url='$vu', img1='$newimg',img2='$newimg2',img3='$newimg3' where product_id='$id'  ;";
+
+                              $sqlsel = "select * from tbl_products where  tittle='$tit' and tittle!='$titold';";
+                              $res = mysqli_query($conn, $sqlsel) or die(mysqli_error($conn));
+                              $row = mysqli_num_rows($res) ;
+                              if($row <= 0)
+                              {
+
+                              $sql = "update tbl_products set tittle='$tit',subcat_id='$subcat', description='$desc', price='$price',video_url='$vu', img1='$newimg',img2='$newimg2',img3='$newimg3', is_active='$_radioSelect' where product_id='$id'  ;";
                               $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                              echo "<script> window.location='product_view.php'; </script>";
-                           
-                          }
+                              echo "<script> window.location='product_view.php'; </script>";                           
+                              }
+                              else
+                              {
                             ?>
+                            <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                      <p>Already exist</p>
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                           <?php
+                          }
+                          }
+                          ?>
                     </div>
                     <div class="card-footer">
 
@@ -313,22 +334,23 @@ include "commanpages/connection.php";
   <!-- login js-->
   <!-- Plugin used-->
   <script>
-  $(document).ready(function() {
-    jQuery.validator.addMethod("lettersonly", function(value, element) {
-      return this.optional(element) || /^[a-z]+$/i.test(value);
-    }, "Letters only please");
+$(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
 
-    jQuery.validator.addMethod("noSpace", function(value, element) {
-  // Regular expression to check if the value has leading or trailing spaces
-  var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
-  return !leadingTrailingSpaceRegex.test(value);
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
     $("#_frm").validate({
       rules: {
         tittle: {
           required: true,
           minlength:3,
+          lettersonly:false,
           noSpace :true,
 
         },
@@ -349,15 +371,6 @@ include "commanpages/connection.php";
         video_url: {
           required: true,
           noSpace :true,
-        },
-        img1: {
-          required: true,
-        },
-        img2: {
-          required: true,
-        },
-        img3: {
-          required: true,
         }
 
       },
@@ -365,11 +378,12 @@ include "commanpages/connection.php";
         tittle: {
           required: "Blank is not allowed.",
           minlength: "atleast 3 letter is required.",
+          lettersonly:"Numbers and spacialcharecter are not allow.",
           noSpace : "Space is not alloewd"
 
         },
         subcat_id: {
-          required: "Blank is not allowed.",
+          required: "Please select sub-category",
         },
         price: {
           required: "Blank is not allowed.",
@@ -387,15 +401,6 @@ include "commanpages/connection.php";
           required: "Blank is not allowed",
           noSpace : "Space is not alloewd"
 
-        },
-        img1: {
-          required: "Please select Image",
-        },
-        img2: {
-          required: "Please select Image",
-        },
-        img3: {
-          required: "Please select Image",
         }
       }
 

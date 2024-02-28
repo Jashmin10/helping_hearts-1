@@ -87,16 +87,16 @@ include "commanpages/connection.php";
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
+                    <form  action="#" method="post" >
                     <table class="display" id="advance-1">
                       <thead>
                         <tr>
                           <th>#</th>
                           <th>Tittle</th>
-                          <th>Is Active</th>
                           <th>Minimum</th>
                           <th>Maximum</th>
                           <th>Discount</th>
-                          <th>Is Active</th>
+                          <th>Is Display</th>
                           <th>Actions</th>
 
                         </tr>
@@ -113,12 +113,42 @@ include "commanpages/connection.php";
                           <tr>
                             <td><?php echo $count ?> </td>
                             <td><?php echo $row["tittle"]  ?></td>
-                            <td><?php echo $row["is_active"]  ?></td>
                             <td><?php echo $row["min"]  ?></td>
                             <td><?php echo $row["max"]  ?></td>
                             <td><?php echo $row["discount"]  ?></td>
-                            <td><?php echo $row["is_active"]  ?></td>
+                            <td>
+                              <?php 
+                              if($row["is_display"]=="yes")
+                              {
+                              
+                                echo '<button class="btn btn-pill btn-danger" type="submit" name="btn_no" value="'.$id.'">No</button>';
+                              }
+                              else{
+                                echo '<button class="btn btn-pill btn-primary" type="submit" name="btn_yes" value="'.$id.'">Yes</button>';
+                              }
+                             
 
+                              if(isset($_POST["btn_no"])) {
+                                 $t = $_POST["btn_no"];
+                                $sql = "UPDATE tbl_offers SET is_display='no' WHERE offer_id='$t'";
+                                $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                              
+                                // Redirect
+                                echo "<script>window.location='offer_view.php';</script>";
+                            }
+                            
+                            if(isset($_POST["btn_yes"])) {
+                              $t = $_POST["btn_yes"];
+                             $sql = "UPDATE tbl_offers SET is_display='yes' WHERE offer_id='$t'";
+                             $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                           
+                             // Redirect
+                             echo "<script>window.location='offer_view.php';</script>";
+                         }
+                            
+                              ?>
+                              
+                          </td>
                             <td>
 
                               <a href="offer_update.php?selectid=<?php echo $id; ?>"><i data-feather="edit"></i></a>
@@ -162,11 +192,10 @@ include "commanpages/connection.php";
                         <tr>
                         <th>#</th>
                           <th>Tittle</th>
-                          <th>Is Active</th>
                           <th>Minimum</th>
                           <th>Maximum</th>
                           <th>Discount</th>
-                          <th>Is Active</th>
+                          <th>Is Display</th>
                           <th>Actions</th>
                         </tr>
                       </tfoot>
@@ -180,6 +209,7 @@ include "commanpages/connection.php";
                       }
                       ?>
                     </table>
+                    </form>
                   </div>
                 </div>
               </div>

@@ -90,6 +90,8 @@ include "commanpages/connection.php";
                       <form class="theme-form" method="post" id="_frm">
                       <label class="col-form-label pt-0" for="exampleInputState">City</label>
                         <select class="form-control" name="city_id">
+                        <option value="0" disabled selected>Please select area</option>
+
                         <?php 
                          $sql = "select * from tbl_city;";
                          $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
@@ -177,23 +179,38 @@ include "commanpages/connection.php";
 <script>
     $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
 
       $("#_frm").validate({
         rules: {
+          city_id: {
+          required: true,
+        },
           area_name:{
             required:true,
             minlength:3,
             lettersonly:true,
+            noSpace :true
             
           }
         },
         messages: {
+          city_id: {
+          required: "Please select area",
+        },
           area_name:{
-            required:"Blank is not allowed.",
+            required:"Please enter area.",
             minlength:"atleast 3 letter is required.",
-            lettersonly:"Numbers and spacialcharecter are not allow."
+            lettersonly:"Numbers and spacialcharecter are not allow.",
+            noSpace : "Space is not alloewd"
+
           }
         }
 

@@ -86,48 +86,46 @@ include "commanpages/connection.php";
                   <div class="card">
                     
                     <div class="card-body">
-                      <form class="theme-form" method="post">
+                      
                       <div class="card-body">
+                      <?php
+                if(isset($_GET['donationid'])){
+                  $id = $_GET['donationid'];
+                  $sql1 = "select * from tbl_donation
+                  inner join tbl_user on tbl_donation.user_id=tbl_user.user_id where donation_id=$id;";
+                  $res1=mysqli_query($conn,$sql1);
+                  while($row = mysqli_fetch_assoc($res1)){
+                    //$uid = $row["user_id"];
+                    $unm = $row['name'];
+                    $t = $row["items"];
+                  }
+                }
+                
+                ?>
               <form class="theme-form" id="_frm" method="post">
+               
               <div class="mb-3 row">
                   <label class="col-sm-3 col-form-label" for="inputEmail3">Donator</label>
                   <div class="col-sm-9">
-                    <select class="form-control" name="user_id">
-                      <?php
-                      $sql = "select * from tbl_donation inner join tbl_user on tbl_donation.user_id=tbl_user.user_id;";
-                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        $nm = $row['name'];
-                        $id = $row['user_id'];
-                        echo "<option value=$id> $nm </option>";
-                      }
-                      ?>
-                    </select>
+                    <input class="form-control" name="user_id" type="text" value="<?php echo $unm?>" disabled/>
                   </div>
                 </div>
                 <div class="mb-3 row">
                   <label class="col-sm-3 col-form-label">Donation</label>
                   <div class="col-sm-9">
-                    <select class="form-control" name="donation_id">
-                      <?php
-                      $sql = "select * from tbl_donation;";
-                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        $nm = $row['items'];
-                        $id = $row['donation_id'];
-                        echo "<option value=$id> $nm </option>";
-                      }
-                      ?>
-                    </select>
+                    <input class="form-control" name="donation_id" type="text" value="<?php echo $t?>" disabled/>
+                    
                   </div>
                 </div>
                 <div class="mb-3 row">
                   <label class="col-sm-3 col-form-label">Select Volunteers</label>
                   <div class="col-sm-9">
                     <select class="form-control" name="vol_assign">
+                    <option value="0" disabled selected>Please select Volunteer</option>
+
                       <?php
-                      $sql = "select * from tbl_volunteers;";
-                      $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                      $sql1 = "select * from tbl_volunteers;";
+                      $result = mysqli_query($conn, $sql1) or die(mysqli_error($conn));
                       while ($row = mysqli_fetch_assoc($result)) {
                         $nm = $row['vol_name'];
                         $id = $row['vol_id'];
@@ -137,18 +135,40 @@ include "commanpages/connection.php";
                     </select>
                   </div>
                 </div>
+
+                <div class="mb-3 row">
+                  <label class="col-sm-3 col-form-label" >Remark</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" name="remark" type="text">
+                  </div>
+                </div>
+              <!-- </div> -->
                 <?php
 
-if (isset($_POST["btn_sub"])) 
-{
-}
-?>
+                  if (isset($_POST["btn_add"])) 
+                  {
+                    $vid = $_POST["vol_assign"];
+                    $id = $_GET['donationid'];
+                    $rmark = $_POST["remark"];
+                     $sql = "insert into tbl_assign(vol_id,donation_id,vol_assign,remark) values ($vid,$id,'unavailable','$rmark');";
+                     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                    //echo "Donation Assigned Successfully ".$vid . " " . $id . " " . $rmark;
+                    echo "<script> window.location='assign_view.php'; </script>";
+
+                    ?>
+                    <!-- <script>alert("Donation Assigned Successfully "+ $vid + " " + $id + " " + $rmark);</script> -->
+                  <?php
+
+                  }
+                ?>
             </div>
                     <div class="card-footer">
                       <button type="submit" class="btn btn-primary" name="btn_add">Assign</button>
-                      <a href="assign_view.php" class="btn btn-danger">Cancel</a>
+                      <a href="assign_view.php" class="btn btn-secondary">Cancel</a>
                     </div>
+                   
                     </form>
+                   
                   </div>
                 </div>
               </div>
@@ -181,4 +201,38 @@ if (isset($_POST["btn_sub"]))
   <!-- login js-->
   <!-- Plugin used-->
 </body>
+<script>
+  $(document).ready(function(){
+      jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Letters only please"); 
+
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty");
+    $("#_frm").validate({
+      rules: {
+        vol_assign:{
+          required:true
+        },
+        remark: {
+          required: true,
+          noSpace :true,
+
+        }
+      },
+      messages: {
+        vol_assign:{
+          required:"Please select volunteer"
+        },
+          remark:{
+            required:"Blank is not allowed.",
+            noSpace:"Space is not allowed"
+          },
+        }
+  });
+});
+</script>
 </html>
