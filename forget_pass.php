@@ -94,7 +94,13 @@ require 'PHPMailer/src/SMTP.php';
                 $query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
                 $row = mysqli_num_rows($query);
                 if ($row <= 0) {
-                  echo "Email is not valid";
+                 
+                  ?>
+                  <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+                  <p>E-mail is not valid</p>
+                  <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php
                 } else {
 
 
@@ -131,16 +137,21 @@ require 'PHPMailer/src/SMTP.php';
                     $mail->Subject = 'Email from HelpingHearts';
 
                     // Mail body content 
-                    $bodyContent = '<h1>How to Send Email from Localhost using PHP by CodexWorld</h1>';
-                    $bodyContent .= '<p>This HTML email is sent from the localhost server using PHP by <b>CodexWorld</b></p>';
+                    $bodyContent = '<h1>This is e-mail from helping hearts to remember your password</h1>';
+                    $bodyContent .= '<p>This is your password from <b>Helping Hearts</b></p>';
                     $bodyContent .= '<h2>Your Password is :'.$_pass.' </h2>';
                     $mail->Body    = $bodyContent;
 
                     // Send email 
                     if (!$mail->send()) {
-                      echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+                    
+                       echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+                     
+                           
                     } else {
                       echo 'Message has been sent.';
+                      echo "<script> window.location='index.php'; </script>";
+
                     }
                   }
                 }
@@ -149,7 +160,9 @@ require 'PHPMailer/src/SMTP.php';
 
               ?>
               <div class="form-group">
+              <!-- <a name="btn_back" class="btn btn-primary btn-block" >Back</a> -->
                 <Button name="btn_sub" class="btn btn-primary btn-block" type="submit">Done</Button>
+
               </div>
 
             </form>

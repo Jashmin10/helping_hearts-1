@@ -15,20 +15,27 @@
     <link rel="shortcut icon" href="assets/images/helping.png" type="image/x-icon">
     <title>Dashboard</title>
     <!-- Google font-->
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=**Quicksand:wght@500**&display=swap" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+     -->
     <!-- Font Awesome-->
-    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css"> -->
     <!-- ico-font-->
     <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
     <!-- Themify icon-->
     <link rel="stylesheet" type="text/css" href="assets/css/themify.css">
     <!-- Flag icon-->
-    <link rel="stylesheet" type="text/css" href="assets/css/flag-icon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.1.0/css/flag-icons.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/flag-icon.css"> -->
     <!-- Feather icon-->
-    <link rel="stylesheet" type="text/css" href="assets/css/feather-icon.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.1/feather.min.js" ></script>
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/feather-icon.css"> -->
     <!-- Plugins css start-->
     <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
     <link rel="stylesheet" type="text/css" href="assets/css/chartist.css">
