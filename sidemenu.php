@@ -30,7 +30,7 @@
                     </div>
                     </li>
                   </li>
-                  <li class="dropdown"><a class="nav-link menu-title" href="dashboard.php"><i data-feather="home"></i><span>Dashboard</span></a>
+                  <li class="dropdown"><a class="nav-link menu-title" href="dashboard.php"><i data-feather="home"></i><span>Home</span></a>
                   </li>
 
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="map-pin"></i><span>Location</span></a>
@@ -40,7 +40,7 @@
                       <li><a href="area_view.php">Area</a></li> 
                     </ul>
                   </li>
-                  <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="users"></i><span>User</span></a>
+                  <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="users"></i><span>People</span></a>
                     <ul class="nav-submenu menu-content">
                       <li><a href="current_userview.php">Current User</a></li>
                       <li><a href="past_userview.php">Past User</a></li>
@@ -108,14 +108,6 @@
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="cloud"></i><span>Reports</span></a>
                     <ul class="nav-submenu menu-content">
                     </ul>
-                  </li>
-                  <li class="sidebar-main-title">
-                    <div>
-                      <h6>Wallet</h6>
-                    </div>
-                  </li>
-                  <li class="dropdown"><a class="nav-link menu-title" href="mywallet_view.php"><i data-feather="cloud"></i><span>My Wallet</span></a>
-                    
                   </li>
                 </ul>
               </div>

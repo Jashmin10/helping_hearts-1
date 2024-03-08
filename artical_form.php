@@ -199,6 +199,7 @@ if (isset($_POST["btn_sub"])) {
   <script src="assets/js/bootstrap/bootstrap.min.js"></script>
   <!-- Plugins JS start-->
   <script src="assets/jquery.validate.min.js"></script>
+  <script src="assets/additional-methods.js"></script>
   <!-- Plugins JS Ends-->
   <!-- Theme js-->
   <script src="assets/js/script.js"></script>
@@ -229,11 +230,13 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           },
           img1:{
             required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
+            accept: "image/jpg,image/jpeg,image/png,image/gif"
+
           },
           img2:{
             required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
+            accept: "image/jpg,image/jpeg,image/png,image/gif"
+
           },
           video_url:{
             required: true,
@@ -262,11 +265,11 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           },
           img1:{
             required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
+            accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
           },
           img2:{
             required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
+            accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
           },
           video_url: {
             required: "Blank is not allowed.",

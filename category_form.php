@@ -171,6 +171,7 @@ if (isset($_POST["btn_sub"])) {
   <script src="assets/js/bootstrap/bootstrap.min.js"></script>
   <!-- Plugins JS start-->
   <script src="assets/jquery.validate.min.js"></script>
+  <script src="assets/additional-methods.js"></script>
   <!-- Plugins JS Ends-->
   <!-- Theme js-->
   <script src="assets/js/script.js"></script>
@@ -198,9 +199,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
             noSpace:true
           },
           image: {
-            required: true,
-            extension: "jpg|jpeg|png|ico|bmp"
-        }
+            required: true, 
+            accept: "image/jpeg, image/jpg, image/png, image/gif"
+          }
         },
         messages: {
           cat_name:{
@@ -210,9 +211,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
             noSpace:"Space is not allowed"
           },
           image: {
-            required: "Please upload file.",
-            extension: "Please upload file in these format only (jpg, jpeg, png, ico, bmp)."
-        }
+            required: "Required!", 
+            accept: "Please upload only images of type: jpeg, jpg, png, gif."
+          }
         }
 
       });

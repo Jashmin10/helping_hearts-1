@@ -250,6 +250,7 @@ include "commanpages/connection.php";
     <script src="assets/js/bootstrap/bootstrap.min.js"></script>
     <!-- Plugins JS start-->
     <script src="assets/jquery.validate.min.js"></script>
+    <script src="assets/additional-methods.js"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="assets/js/script.js"></script>
@@ -297,8 +298,10 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         area_id: {
           required: true,
+        },
+        myfile: {           
+            accept: "image/jpg,image/jpeg,image/png,image/gif"
         }
-       
         
 
       },
@@ -333,7 +336,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         area_id: {
           required: "Please select area",
         },
-       
+        myfile: {            
+            accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
+        }
       }
 
     });

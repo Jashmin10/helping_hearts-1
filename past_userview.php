@@ -84,6 +84,7 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
+                      <form action="" method="post">
                       <table class="display" id="advance-1">
                         <thead>
                           <tr>
@@ -93,8 +94,8 @@
                             <th>Contect</th>
                             <th>Birthdate</th>
                             <th>Gender</th>
-                        
-                            
+                            <th>Is Block</th>
+                            <th>Is Verify</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -120,10 +121,72 @@
                                       <td><?php echo $row["contact"]  ?></td>
                                       <td><?php echo $row["birthdate"]  ?></td>
                                       <td><?php echo $row["gender"]  ?></td>
+                                      <td>
+                              <?php 
+                              if($row["is_block"]=="yes")
+                              {
+                              
+                                echo '<button class="btn btn-pill btn-danger" type="submit" name="btn_no" value="'.$id.'">No</button>';
+                              }
+                              else{
+                                echo '<button class="btn btn-pill btn-primary" type="submit" name="btn_yes" value="'.$id.'">Yes</button>';
+                              }
+                             
 
-                                       <td>
-                                      
-                                       </td>
+                              if(isset($_POST["btn_no"])) {
+                                 $t = $_POST["btn_no"];
+                                $sql = "UPDATE tbl_user SET is_block='no' WHERE user_id='$t'";
+                                $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                              
+                                // Redirect
+                                echo "<script>window.location='past_userview.php';</script>";
+                            }
+                            
+                            if(isset($_POST["btn_yes"])) {
+                              $t = $_POST["btn_yes"];
+                             $sql = "UPDATE tbl_user SET is_block='yes' WHERE user_id='$t'";
+                             $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                           
+                             // Redirect
+                             echo "<script>window.location='past_userview.php';</script>";
+                         }
+                            
+                              ?>
+                              
+                          </td>
+                          <td>
+                              <?php 
+                              if($row["is_verify"]=="yes")
+                              {
+                              
+                                echo '<button class="btn btn-pill btn-danger" type="submit" name="btn_no" value="'.$id.'">No</button>';
+                              }
+                              else{
+                                echo '<button class="btn btn-pill btn-primary" type="submit" name="btn_yes" value="'.$id.'">Yes</button>';
+                              }
+                             
+
+                              if(isset($_POST["btn_no"])) {
+                                 $t = $_POST["btn_no"];
+                                $sql = "UPDATE tbl_user SET is_verify='no' WHERE user_id='$t'";
+                                $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                              
+                                // Redirect
+                                echo "<script>window.location='past_userview.php';</script>";
+                            }
+                            
+                            if(isset($_POST["btn_yes"])) {
+                              $t = $_POST["btn_yes"];
+                             $sql = "UPDATE tbl_user SET is_verify='yes' WHERE user_id='$t'";
+                             $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                                           
+                             // Redirect
+                             echo "<script>window.location='past_userview.php';</script>";
+                         }
+                            
+                              ?>
+                              
+                          </td>
                                        </tr>
                           <?php 
                                 }
@@ -140,8 +203,8 @@
                             <th>Contect</th>
                             <th>Birthdate</th>
                             <th>Gender</th>
-                          
-
+                            <th>Is Block</th>
+                            <th>Is Verify</th>                        
                           </tr>
                         </tfoot>
                         <?php 
@@ -154,6 +217,7 @@
                       }
                       ?>
                       </table>
+                      </form>
                     </div>
                   </div>
                 </div>

@@ -272,6 +272,7 @@ include "commanpages/connection.php";
   <script src="assets/js/bootstrap/bootstrap.min.js"></script>
   <!-- Plugins JS start-->
   <script src="assets/jquery.validate.min.js"></script>
+  <script src="assets/additional-methods.js"></script>
   <!-- Plugins JS Ends-->
   <!-- Theme js-->
   <script src="assets/js/script.js"></script>
@@ -311,7 +312,10 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           ref_link:{
             required: true,
             minlength: 3,
-          }
+          },
+          img1: {           
+            accept: "image/jpg,image/jpeg,image/png,image/gif"
+        }
         },
         messages: {
           tittle: {
@@ -335,6 +339,9 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
             required: "Blank is not allowed.",
             minlength: "atleast 3 letter is required.", 
           },
+          img1: {            
+            accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
+        }
         }
 
       });

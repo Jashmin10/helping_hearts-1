@@ -197,6 +197,7 @@ include "commanpages/connection.php";
     <script src="assets/js/bootstrap/bootstrap.min.js"></script>
     <!-- Plugins JS start-->
     <script src="assets/jquery.validate.min.js"></script>
+    <script src="assets/additional-methods.js"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="assets/js/script.js"></script>
