@@ -289,7 +289,11 @@ include "commanpages/connection.php";
                               {
                             ?>
                             <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+<<<<<<< HEAD
                       <p>already exist</p>
+=======
+                      <p>Already exist</p>
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                            <?php

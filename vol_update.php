@@ -211,7 +211,11 @@ include "commanpages/connection.php";
                             {
                            ?>
                             <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
+<<<<<<< HEAD
                       <p>already exist</p>
+=======
+                      <p>Already exist</p>
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                            <?php
@@ -298,10 +302,15 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         area_id: {
           required: true,
+<<<<<<< HEAD
         },
         myfile: {           
             accept: "image/jpg,image/jpeg,image/png,image/gif"
         }
+=======
+        }
+       
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
         
 
       },
@@ -336,9 +345,13 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         area_id: {
           required: "Please select area",
         },
+<<<<<<< HEAD
         myfile: {            
             accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
         }
+=======
+       
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
       }
 
     });

@@ -2,6 +2,7 @@
 include 'connection.php';
 header('Content-Type: application/json');
 
+<<<<<<< HEAD
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -70,3 +71,28 @@ if (mysqli_num_rows($result) <= 0) {
 
 echo json_encode($response);
 ?>
+=======
+$response=array();
+
+    $email=$_POST["email"];
+
+    $result=mysqli_query($conn,"select * from tbl_user where email='$email'");
+
+    if(mysqli_num_rows($result)<=0){
+        $response['status']="Failure";
+        $response['message']="Invalid user";
+
+    }
+    else
+    {
+        $response['status']="Success";
+        $response['message']="Valid user";
+        while($row=mysqli_fetch_assoc($result))
+        {
+            $response['mydata']=$row;
+        }
+    }
+
+echo json_encode($response);
+?>
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610

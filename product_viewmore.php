@@ -135,7 +135,11 @@
                                       <td><?php echo $row["price"]?></td>
                                       <td><?php echo $row["description"]?></td>
                                       <td><?php echo $row["video_url"]?></td>
+<<<<<<< HEAD
                                       <td><a class="btn btn-pill btn-primary" type="button"><?php echo $row["is_active"];?></a></td>
+=======
+                                      <td><a class="btn btn-pill btn-primary btn-sm" type="button"><?php echo $row["is_active"];?></a></td>
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                                       
                                        </tr>
                           <?php 

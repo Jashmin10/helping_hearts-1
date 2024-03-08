@@ -115,7 +115,11 @@ include "commanpages/connection.php";
                         {
                             $que = $_POST["question"];
                             $ans = $_POST["answer"];
+<<<<<<< HEAD
                            $sql= "select * from tbl_faq where question = '$que' and  answer='$ans';";
+=======
+                           $sql= "select * from tbl_faq where question = '$que' and answer='$ans';";
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                            $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                            $row = mysqli_num_rows($result);
                            if($row==0)

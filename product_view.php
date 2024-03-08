@@ -153,7 +153,10 @@
                               ?>
                               
                           </td>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                                        <td>
                                        <a href="product_update.php?selectid=<?php echo $id; ?>"><i data-feather="edit"></i></a>  
                                        <a href="#" class="deletebtn" data-id="<?php echo $id;  ?>"  data-bs-toggle="modal" data-original-title="test" data-bs-target="#exampleModal"><i data-feather="trash"></i></a>                                      
@@ -180,7 +183,11 @@
                      </div>
 
                                        </td>
+<<<<<<< HEAD
                                        
+=======
+                                      
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                                        </tr>
                           <?php 
                                 }

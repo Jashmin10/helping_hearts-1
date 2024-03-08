@@ -159,10 +159,13 @@ include "commanpages/connection.php";
                             <label>No</label>
                           </div>
                         
+<<<<<<< HEAD
                     </div>
                     <div>
                       
 
+=======
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                     </div>
              
                 </div>
@@ -303,7 +306,10 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         img3: {
           required: true,
+<<<<<<< HEAD
           accept: "image/jpg,image/jpeg,image/png,image/gif"
+=======
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
         },
         is_active:{
           required:true
@@ -347,7 +353,10 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         img3: {
           required: "Please select Image",
+<<<<<<< HEAD
           accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
+=======
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
         },
         is_active: {
           required: "Please select one option."

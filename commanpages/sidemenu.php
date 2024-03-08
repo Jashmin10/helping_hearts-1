@@ -40,7 +40,11 @@
                       <li><a href="area_view.php">Area</a></li> 
                     </ul>
                   </li>
+<<<<<<< HEAD
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="users"></i><span>User</span></a>
+=======
+                  <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="users"></i><span>People</span></a>
+>>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                     <ul class="nav-submenu menu-content">
                       <li><a href="current_userview.php">Current User</a></li>
                       <li><a href="past_userview.php">Past User</a></li>
