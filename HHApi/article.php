@@ -4,13 +4,13 @@ include 'connection.php';
 $response=array();
    
 
-$cat_id = $_POST["cat_id"];
-    $result=mysqli_query($conn,"select * from tbl_subcategory where cat_id='$cat_id'");
 
-    if($result)
+    $result=mysqli_query($conn,"select * from tbl_article");
+
+    if($result==true)
     {
         $response["status"]="Success";
-        $response['message'] = "Successfully get Sub Category"; 
+        $response['message'] = "All article Successfully display."; 
         while($row = mysqli_fetch_assoc($result))
         {
             $response['data'][] = $row;
@@ -19,7 +19,7 @@ $cat_id = $_POST["cat_id"];
     else
     {
         $response["status"]="Failure";
-        $response['message'] = "Sub Category is not found."; 
+        $response['message'] = "article is not found."; 
 
     }
     echo json_encode($response);

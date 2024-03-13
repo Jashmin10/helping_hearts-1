@@ -250,7 +250,15 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           is_display:{
             required:"Please select one option"
           },
-        }
+      
+        },
+        errorPlacement: function(error, element) {
+      if (element.attr("name") == "is_display") {
+        error.appendTo(element.parent().parent());
+      } else {
+        error.insertAfter(element);
+      }
+    },
 
       });
 

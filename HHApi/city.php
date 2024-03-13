@@ -2,24 +2,25 @@
 include 'connection.php';
 
 $response=array();
+    
    
 
 
-    $result=mysqli_query($conn,"select * from tbl_category");
+    $result=mysqli_query($conn,"select * from tbl_city");
 
     if($result==true)
     {
         $response["status"]="Success";
-        $response['message'] = "Successfully get Category."; 
+        $response['message'] = "Successfully Registered. Please Login to Continue."; 
         while($row = mysqli_fetch_assoc($result))
         {
-            $response['data'][] = $row;
+            $response["data"][] = $row;
         }
     }
     else
     {
         $response["status"]="Failure";
-        $response['message'] = "Sub Category is not found."; 
+        $response['message'] = "Registration is fail"; 
 
     }
     echo json_encode($response);

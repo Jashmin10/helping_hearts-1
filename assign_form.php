@@ -139,11 +139,7 @@ include "commanpages/connection.php";
                 <div class="mb-3 row">
                   <label class="col-sm-3 col-form-label" >Remark</label>
                   <div class="col-sm-9">
-<<<<<<< HEAD
-                    <input class="form-control" name="remark" type="text" placeholder="Enter Remark">
-=======
-                    <input class="form-control" name="remark" type="text">
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
+
                   </div>
                 </div>
               <!-- </div> -->

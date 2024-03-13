@@ -2,7 +2,7 @@
 include 'connection.php';
 header('Content-Type: application/json');
 
-<<<<<<< HEAD
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -95,4 +95,4 @@ $response=array();
 
 echo json_encode($response);
 ?>
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
+

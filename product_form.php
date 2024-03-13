@@ -159,13 +159,10 @@ include "commanpages/connection.php";
                             <label>No</label>
                           </div>
                         
-<<<<<<< HEAD
                     </div>
                     <div>
                       
 
-=======
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                     </div>
              
                 </div>
@@ -250,7 +247,6 @@ if (isset($_POST["btn_sub"])) {
   <script src="assets/js/bootstrap/bootstrap.min.js"></script>
   <!-- Plugins JS start-->
   <script src="assets/jquery.validate.min.js"></script>
-  <script src="assets/additional-methods.js"></script>
   <!-- Plugins JS Ends-->
   <!-- Theme js-->
   <script src="assets/js/script.js"></script>
@@ -298,18 +294,12 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         img1: {
           required: true,
-          accept: "image/jpg,image/jpeg,image/png,image/gif"
         },
         img2: {
           required: true,
-          accept: "image/jpg,image/jpeg,image/png,image/gif"
         },
         img3: {
           required: true,
-<<<<<<< HEAD
-          accept: "image/jpg,image/jpeg,image/png,image/gif"
-=======
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
         },
         is_active:{
           required:true
@@ -345,23 +335,24 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
         },
         img1: {
           required: "Please select Image",
-          accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
         },
         img2: {
           required: "Please select Image",
-          accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
         },
         img3: {
           required: "Please select Image",
-<<<<<<< HEAD
-          accept: "Please upload file in these format only (image/jpg,image/jpeg,image/png,image/gif)."
-=======
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
         },
         is_active: {
           required: "Please select one option."
         }
+      },
+      errorPlacement: function(error, element) {
+      if (element.attr("name") == "is_active") {
+        error.appendTo(element.parent().parent());
+      } else {
+        error.insertAfter(element);
       }
+    },
 
     });
 

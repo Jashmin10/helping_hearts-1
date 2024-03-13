@@ -282,7 +282,14 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           is_active:{
             required:"Please select one option",
           },
-        }
+        },
+        errorPlacement: function(error, element) {
+      if (element.attr("name") == "is_active") {
+        error.appendTo(element.parent().parent());
+      } else {
+        error.insertAfter(element);
+      }
+    },
 
       });
 

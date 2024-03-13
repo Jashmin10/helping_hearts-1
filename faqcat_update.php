@@ -171,10 +171,7 @@ include "commanpages/connection.php";
   <!-- Plugin used-->
 </body>
 <script>
-$(document).ready(function(){
-      jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z\s]+$/i.test(value);
-}, "Letters only please"); 
+ 
 
 jQuery.validator.addMethod("noSpace", function(value, element) {
         // Regular expression to check if the value has leading or trailing spaces
@@ -187,7 +184,7 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           type:{
             required:true,
             minlength:3,
-            lettersonly:true,
+            //lettersonly:true,
             noSpace :true,
             
           }
@@ -196,13 +193,13 @@ jQuery.validator.addMethod("noSpace", function(value, element) {
           type:{
             required:"Blank is not allowed.",
             minlength:"atleast 3 letter is required.",
-            lettersonly:"Numbers and spacialcharecter are not allow.",
+            //lettersonly:"Numbers and spacialcharecter are not allow.",
             noSpace : "Space is not alloewd"
           }
         }
 
       });
 
-    });
+   
     </script>
 </html>

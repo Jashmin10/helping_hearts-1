@@ -153,15 +153,12 @@ include "commanpages/connection.php";
                             
                               echo "<script> window.location='category_view.php'; </script>";
                              }
-<<<<<<< HEAD
                              else                                                          
                             {
-=======
-                             else
-                              
-                             
+
+                                        
                           {
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
+
                            ?>
                             <div class="alert alert-danger inverse alert-dismissible fade show" role="alert"><i class="icon-thumb-down"></i>
                       <p>Already exist</p>
@@ -170,6 +167,7 @@ include "commanpages/connection.php";
                            <?php
                           }
                           }
+                        }
                             ?>
 
 

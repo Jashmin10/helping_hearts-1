@@ -115,11 +115,6 @@ include "commanpages/connection.php";
                         {
                             $que = $_POST["question"];
                             $ans = $_POST["answer"];
-<<<<<<< HEAD
-                           $sql= "select * from tbl_faq where question = '$que' and  answer='$ans';";
-=======
-                           $sql= "select * from tbl_faq where question = '$que' and answer='$ans';";
->>>>>>> 071547f108ec4332edac78c0c0d0c4a77c728610
                            $result = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                            $row = mysqli_num_rows($result);
                            if($row==0)
@@ -180,12 +175,14 @@ include "commanpages/connection.php";
 <script>
     $(document).ready(function(){
       jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z]+$/i.test(value);
+  return this.optional(element) || /^[a-z\s]+$/i.test(value);
 }, "Letters only please"); 
 
-jQuery.validator.addMethod("noSpace", function(value, element) { 
-  return value.indexOf(" ") < 0 && value != ""; 
-}, "No space please and don't leave it empty");
+jQuery.validator.addMethod("noSpace", function(value, element) {
+        // Regular expression to check if the value has leading or trailing spaces
+        var leadingTrailingSpaceRegex = /^\s+|\s+$/g;
+        return !leadingTrailingSpaceRegex.test(value);
+    }, "No leading or trailing space please and don't leave it empty"); 
 
       $("#_frm").validate({
         rules: {
