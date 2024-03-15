@@ -1,5 +1,14 @@
 <?php
   include "commanpages/session.php";
+  include "commanpages/connection.php";
+$donation = "SELECT * FROM tbl_donation";
+$result = $conn->query($donation);
+$num_rows = $result->num_rows;
+
+
+$result = mysqli_query($conn, "SELECT COUNT(*) as active_users FROM tbl_donation");
+$row = mysqli_fetch_assoc($result);
+$total_active_users = $row["active_users"];
 ?>
 
 <!DOCTYPE html>
@@ -74,9 +83,9 @@
                 <div class="card">
                   <div class="card-header">
                     <div class="header-top d-sm-flex justify-content-between align-items-center">
-                      <h5>Invoice Overview    </h5>
+                      <h5>Donation Analaysis</h5>
                       <div class="center-content">                                                               
-                        <p class="d-sm-flex align-items-center"><span class="m-r-10">$5,56548k</span><i class="toprightarrow-primary fa fa-arrow-up m-r-10"></i>94% More Than Last Year</p>
+                         <p class="d-sm-flex align-items-center"><span class="m-r-10"></span>Total donations</p>
                       </div>
                       <div class="setting-list">
                         <ul class="list-unstyled setting-option">
@@ -93,16 +102,14 @@
                     </div>
                   </div>
                   <div class="card-body p-0">
-                    <div id="timeline-chart"></div>
-                    <div class="code-box-copy">
-                      <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#invoice-overview" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                      <pre><code class="language-html" id="invoice-overview">&lt;div class="card"&gt;
-</code></pre>
+                    <!-- <h2>Donation</h2> -->
+                    <div class="chart-container">
+                      <canvas id="chart" style="height: 300px;"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-6 box-col-12 des-xl-100 top-dealer-sec">
+              <!-- <div class="col-xl-6 box-col-12 des-xl-100 top-dealer-sec">
                 <div class="card">
                   <div class="card-header pb-0">
                     <div class="header-top d-sm-flex justify-content-between align-items-center">
@@ -438,7 +445,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-xl-8 col-md- des-xl-100 box-col-12">
                 <div class="row">
                   <div class="col-xl-3 col-sm-6 box-col-3 chart_data_right">
@@ -787,40 +794,14 @@
                     </div>
                   </div>
                   <div class="card-body p-0 chart-block">
-                    <div id="chart-yearly-growth-dash-2"></div>
-                    <div class="code-box-copy">
-                      <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#yearly-growth" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                      <pre><code class="language-html" id="yearly-growth">  &lt;div class="card"&gt;
-   &lt;div class="card-header pb-0"&gt;
-     &lt;div class="header-top d-sm-flex justify-content-between align-items-center"&gt;
-       &lt;h5&gt;Yearly growth&lt;/h5&gt;
-       &lt;div class="center-content"&gt;
-             &lt;p class="d-sm-flex align-items-center"&gt;
-                &lt;span class="m-r-10"&gt;
-                  &lt;i class=" toprightarrow-primary fa fa-arrow-up m-r-10"&gt;&lt;/i&gt;  $9657.55k
-                &lt;/span&gt; 86% more then last year
-            &lt;/p&gt;
-         &lt;/div&gt;                                             
-     &lt;div class="setting-list"&gt;
-       &lt;ul class="list-unstyled setting-option"&gt;
-         &lt;li&gt;
-           &lt;div class="setting-primary"&gt;&lt;i class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;
-         &lt;/li&gt;
-         &lt;li&gt;&lt;i class="view-html fa fa-code font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-maximize full-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-minus minimize-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-refresh reload-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-error close-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-       &lt;/ul&gt;
-     &lt;/div&gt;
-   &lt;/div&gt;
-   &lt;/div&gt;
-   &lt;div class="card-body p-0 chart-block"&gt;
-      &lt;div id="chart-yearly-growth-dash-2"&gt;
-      &lt;/div&gt;
-   &lt;/div&gt; 
-&lt;/div&gt;        </code></pre>
+                    <!-- <div id="chart-yearly-growth-dash-2 chart"></div> -->
+                    
+                    <!-- <div class="chart-container">
+                      <canvas id=" chart-yearly-growth-dash-2  chart" style="height: 300px;"></canvas>
                     </div>
+ -->
+
+
                   </div>
                 </div>
               </div>
@@ -862,6 +843,105 @@
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="assets/js/script.js"></script>
+
+<script src="assets/js/chart.min.js"></script>
+
+    <script>
+                            var data = {
+                                labels: [
+                                    <?php
+                                    $start_date = new DateTime('2023-10-01');
+                                    $current_date = new DateTime();
+                                    $interval = new DateInterval('P1M');
+                                    $date_period = new DatePeriod($start_date, $interval, $current_date);
+                                    foreach ($date_period as $month) {
+                                        echo '"' . $month->format('M Y') . '"' . ",";
+                                    }
+                                    ?>
+                                ],
+                                datasets: [{
+                                    label: "Donations",
+                                    backgroundColor: "rgba(5,66,50,0.2)",
+                                    borderColor: "rgba(5,66,50)",
+                                    borderWidth: 2,
+                                    hoverBackgroundColor: "rgba(5,66,50,0.4)",
+                                    hoverBorderColor: "rgba(5,66,50,1)",
+                                    data: [
+                                        <?php
+                                        $start_date = new DateTime('2023-10-01');
+                                        $current_date = new DateTime();
+                                        $interval = new DateInterval('P1M');
+                                        $date_period = new DatePeriod($start_date, $interval, $current_date);
+                                        foreach ($date_period as $month) {
+                                            $targetMonth = $month->format('M');
+                                            $targetYear = $month->format('Y');
+
+                                            $result = mysqli_query($conn, "SELECT COUNT(*) as total_donation
+        FROM tbl_donation
+        WHERE DATE_FORMAT(datetime, '%b') = '$targetMonth'
+        AND YEAR(datetime) = $targetYear");
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo $row["total_donation"] . ",";
+                                            }
+                                        }
+                                        ?>
+                                    ],
+                                }]
+                            };
+
+                            var options = {
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        stacked: true,
+                                        grid: {
+                                            display: true,
+                                            color: "rgba(255,99,132,0.2)"
+                                        }
+                                    },
+                                    x: {
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                            };
+
+                            new Chart('chart', {
+                                type: 'bar',
+                                options: options,
+                                data: data
+                            });
+
+                            var userData = {
+                                labels: ['Active Users', 'Inactive Users'],
+                                datasets: [{
+                                    data: [<?php echo $total_active_users ?>, <?php echo ($num_rows - $total_active_users) ?>],
+                                    backgroundColor: ['rgb(5,66,50)', 'rgb(5,66,50,0.2)']
+                                }]
+                            };
+
+                            var userOptions = {
+                                maintainAspectRatio: false,
+                                scales: {
+                                    yAxes: [{
+                                        display: false
+                                    }],
+                                    xAxes: [{
+                                        display: false
+                                    }]
+                                }
+                            };
+
+                            var userChartCanvas = document.getElementById('userChartCanvas').getContext('2d');
+                            new Chart(userChartCanvas, {
+                                type: 'pie',
+                                data: userData,
+                                options: userOptions
+                            });
+                            
+                        </script>
+ 
    
     <!-- login js-->
     <!-- Plugin used-->

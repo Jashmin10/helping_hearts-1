@@ -9,7 +9,7 @@ $response = array();
     $contact = $_POST["contact"];
     $vol_pass = $_POST["vol_pass"];
 
-    $result = mysqli_query($conn, "SELECT * FROM tbl_volunteers WHERE contact ='$contact' AND vol_pass='$vol_pass'");
+    $result = mysqli_query($conn, "SELECT * FROM tbl_volunteers WHERE contact ='$contact' AND vol_pass='$vol_pass' AND is_block='no'");
    
         if (mysqli_num_rows($result) <= 0) {
             $response['status'] = "Failure";

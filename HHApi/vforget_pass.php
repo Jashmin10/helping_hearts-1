@@ -43,7 +43,7 @@ if (mysqli_num_rows($result) <= 0) {
 
         // Sender info 
         $mail->setFrom('mahendra.patel9824039954@gmail.com', 'HelpingHearts');
-        $mail->addReplyTo('mahendra.patel9824039954@gmail.com', 'HelpingHearts');
+        $mail->addReplyTo($user_email, 'HelpingHearts');
 
         // Add a recipient 
         $mail->addAddress($user_email);
