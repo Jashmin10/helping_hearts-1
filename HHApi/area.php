@@ -1,17 +1,15 @@
 <?php
 include 'connection.php';
 header('Content-Type: application/json');
-
-
 $response=array();
-$vid=$_POST["vol_id"];
+    
 
-    $result=mysqli_query($conn,"select * from tbl_volunteers where vol_id='$vid'"); 
+    $result=mysqli_query($conn,"select * from tbl_area"); 
 
     if($result==true)
     {
         $response["status"]="Success";
-        $response['message'] = "All Details Successfully Displayed."; 
+        $response['message'] = "area is displayed"; 
         while($row = mysqli_fetch_assoc($result))
         {
             $response["data"][] = $row;
@@ -20,7 +18,7 @@ $vid=$_POST["vol_id"];
     else
     {
         $response["status"]="Failure";
-        $response['message'] = "Details Not Display"; 
+        $response['message'] = "area is not displayed";  
 
     }
     echo json_encode($response);

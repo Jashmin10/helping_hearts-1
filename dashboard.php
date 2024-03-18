@@ -446,7 +446,7 @@ $total_active_users = $row["active_users"];
                   </div>
                 </div>
               </div> -->
-              <div class="col-xl-8 col-md- des-xl-100 box-col-12">
+              <!-- <div class="col-xl-8 col-md- des-xl-100 box-col-12">
                 <div class="row">
                   <div class="col-xl-3 col-sm-6 box-col-3 chart_data_right">
                     <div class="card income-card card-secondary">
@@ -552,34 +552,7 @@ $total_active_users = $row["active_users"];
                         <div class="code-box-copy">
                           <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#total-selling" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
                           <pre><code class="language-html" id="total-selling">  &lt;div class="card"&gt;
-   &lt;div class="card-header pb-0"&gt;
-     &lt;div class="header-top d-sm-flex justify-content-between align-items-center"&gt;
-       &lt;h5&gt;Total Selling&lt;/h5&gt;
-       &lt;div class="center-content"&gt;
-         &lt;ul class="week-date"&gt;
-           &lt;li class="font-primary"&gt;Today&lt;/li&gt;
-           &lt;li&gt;Month&lt;/li&gt;
-         &lt;/ul&gt;
-       &lt;/div&gt;
-     &lt;div class="setting-list"&gt;
-       &lt;ul class="list-unstyled setting-option"&gt;
-         &lt;li&gt;
-           &lt;div class="setting-primary"&gt;&lt;i class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;
-         &lt;/li&gt;
-         &lt;li&gt;&lt;i class="view-html fa fa-code font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-maximize full-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-minus minimize-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-refresh reload-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-         &lt;li&gt;&lt;i class="icofont icofont-error close-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-       &lt;/ul&gt;
-     &lt;/div&gt;
-   &lt;/div&gt;
-   &lt;/div&gt;
-   &lt;div class="card-body"&gt;
-      &lt;div id="chart-dash-2-line"&gt;
-      &lt;/div&gt;
-   &lt;/div&gt; 
-&lt;/div&gt;        </code></pre>
+       </code></pre>
                         </div>
                       </div>
                     </div>
@@ -690,89 +663,14 @@ $total_active_users = $row["active_users"];
                     <div class="code-box-copy">
                       <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#activity-timeline" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
                       <pre><code class="language-html" id="activity-timeline">   &lt;div class="card"&gt;
- &lt;div class="card-header"&gt;
-   &lt;div class="header-top d-sm-flex justify-content-between align-items-center"&gt;
-     &lt;h5 class="m-0"&gt;Activity Timeline&lt;/h5&gt;
-     &lt;div class="center-content"&gt;
-       &lt;p&gt;Yearly User 24.65k&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;div class="setting-list"&gt;
-       &lt;ul class="list-unstyled setting-option"&gt;
-           &lt;li&gt;
-             &lt;div class="setting-primary"&gt;&lt;i class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;
-           &lt;/li&gt;
-           &lt;li&gt;&lt;i class="view-html fa fa-code font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-           &lt;li&gt;&lt;i class="icofont icofont-maximize full-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-           &lt;li&gt;&lt;i class="icofont icofont-minus minimize-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-           &lt;li&gt;&lt;i class="icofont icofont-refresh reload-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-           &lt;li&gt;&lt;i class="icofont icofont-error close-card font-primary"&gt;&lt;/i&gt;&lt;/li&gt;
-       &lt;/ul&gt;
-     &lt;/div&gt;
-   &lt;/div&gt;
- &lt;/div&gt;
- &lt;div class="card-body"&gt;
-   &lt;div class="chart-main activity-timeline update-line"&gt;
-     &lt;div class="media"&gt;
-       &lt;div class="activity-line"&gt;&lt;/div&gt;
-       &lt;div class="activity-dot-primary"&gt;&lt;/div&gt;
-       &lt;div class="media-body d-block"&gt;
-         &lt;h6&gt; &lt;span class="font-primary"&gt;20-04-2021&lt;/span&gt;Today &lt;/h6&gt;
-         &lt;h5&gt;Updated Product&lt;i class="fa fa-circle circle-dot-primary pull-right"&gt;&lt;/i&gt;&lt;/h5&gt;
-         &lt;p&gt;Quisque a consequat ante Sit amet magna at volutapt.&lt;/p&gt;
-       &lt;/div&gt;
-     &lt;/div&gt;
-     &lt;div class="media"&gt;
-       &lt;div class="activity-dot-primary"&gt;&lt;/div&gt;
-         &lt;div class="media-body d-block"&gt;
-           &lt;h6&gt; &lt;span class="font-primary"&gt;20-04-20121&lt;/span&gt;Today&lt;span class="badge pill-badge-primary m-l-10"&gt;new &lt;/span&gt;&lt;/h6&gt;
-           &lt;h5&gt;James just like your product &lt;i class="fa fa-circle circle-dot-primary pull-right"&gt;&lt;/i&gt;&lt;/h5&gt;
-           &lt;p&gt;Quisque a consequat ante Sit amet magna at volutapt.&lt;/p&gt;
-           &lt;ul class="timeline-pro"&gt;
-             &lt;li&gt; &lt;img class="img-fluid" src="assets/images/dashboard-2/11.png" alt="Product-1"&gt;&lt;/li&gt;
-             &lt;li&gt; &lt;img class="img-fluid" src="assets/images/dashboard-2/10.png" alt="Product-2"&gt;&lt;/li&gt;
-           &lt;/ul&gt;
-         &lt;/div&gt;
-     &lt;/div&gt;
-     &lt;div class="media"&gt;
-         &lt;div class="activity-dot-primary"&gt;&lt;/div&gt;
-           &lt;div class="media-body d-block"&gt;
-             &lt;h6&gt; &lt;span class="font-primary"&gt;20-04-20121&lt;/span&gt;Today&lt;/h6&gt;
-             &lt;h5&gt;Jihan Doe just like your product&lt;i class="fa fa-circle circle-dot-primary pull-right"&gt;&lt;/i&gt;&lt;/h5&gt;
-             &lt;p&gt;Vestibulum nec mi suscipit, dapibus purus ane.&lt;/p&gt;
-           &lt;/div&gt;
-         &lt;/div&gt;
-         &lt;div class="media"&gt;
-             &lt;div class="media-body d-block"&gt;
-               &lt;div class="tomorrow-sec"&gt;
-                 &lt;p&gt;Tomorrow&lt;/p&gt;
-               &lt;/div&gt;
-             &lt;/div&gt;
-         &lt;/div&gt;
-         &lt;div class="media"&gt;
-           &lt;div class="activity-dot-primary"&gt;&lt;/div&gt;
-           &lt;div class="media-body d-block"&gt;
-             &lt;h6&gt; &lt;span class="font-primary"&gt;20-04-20121&lt;/span&gt;Tomorrow&lt;/h6&gt;
-             &lt;h5&gt;Today Total Revenue&lt;i class="fa fa-circle circle-dot-primary pull-right"&gt;&lt;/i&gt;&lt;/h5&gt;
-             &lt;p&gt;Quisque a consequat ante Sit amet magna at volutapt.&lt;/p&gt;
-           &lt;/div&gt;
-         &lt;/div&gt;
-         &lt;div class="media"&gt;
-             &lt;div class="activity-dot-primary"&gt;&lt;/div&gt;
-               &lt;div class="media-body d-block"&gt;
-                 &lt;div class="hospital-small-chart"&gt;
-                   &lt;div id="column-chart"&gt; &lt;/div&gt;
-                 &lt;/div&gt;
-               &lt;/div&gt;
-             &lt;/div&gt;
-         &lt;/div&gt;
-       &lt;/div&gt;
-     &lt;/div&gt;</code></pre>
+
+</code></pre>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-12 des-xl-50 yearly-growth-sec">
-                <div class="card">
+              <div class="col-xl-12 des-xl-50 yearly-growth-sec"> -->
+                <!-- <div class="card">
                   <div class="card-header">
                     <div class="header-top d-sm-flex justify-content-between align-items-center">
                       <h5>Yearly growth</h5>
@@ -793,7 +691,7 @@ $total_active_users = $row["active_users"];
                       </div>
                     </div>
                   </div>
-                  <div class="card-body p-0 chart-block">
+                  <div class="card-body p-0 chart-block"> -->
                     <!-- <div id="chart-yearly-growth-dash-2 chart"></div> -->
                     
                     <!-- <div class="chart-container">

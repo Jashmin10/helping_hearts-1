@@ -12,12 +12,12 @@ $response=array();
     if($result==true)
     {
         $response["status"]="Success";
-        $response['message'] = "You added the product."; 
+        $response['message'] = "product added successfully"; 
     }
     else
     {
         $response["status"]="Failure";
-        $response['message'] = "product not added"; 
+        $response['message'] = "product is not added"; 
 
     }
     echo json_encode($response);
